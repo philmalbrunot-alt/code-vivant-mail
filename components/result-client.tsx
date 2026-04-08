@@ -106,7 +106,46 @@ export function ResultClient() {
               </div>
             </div>
 
-            <div className="rounded-[24px] border border-cv-line bg-cv-panelAlt p-5">
+          <div className="relative rounded-[24px] border border-cv-gold/30 bg-cv-panelAlt p-5 shadow-[0_0_0_1px_rgba(200,155,90,0.06)]">
+  <div className="absolute right-5 top-5 inline-flex items-center gap-2 rounded-full border border-cv-gold/30 bg-cv-gold/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-cv-gold">
+    <span aria-hidden="true">★</span>
+    <span>Recommandé</span>
+  </div>
+
+  <h3 className="pr-28 font-serif text-2xl text-cv-text">Séance avec Philippe</h3>
+  <p className="mt-2 text-3xl text-cv-gold">97 €</p>
+
+  <p className="mt-4 text-sm leading-7 text-cv-muted">
+    1 h en visio pour sortir d’une logique de survie et retrouver une présence plus libre.
+  </p>
+
+  <p className="mt-4 text-sm leading-7 text-cv-muted">
+    Nous partons de votre lecture complète pour voir clair dans ce qui vous retient encore, remettre en
+    mouvement ce qui s’est figé, et clarifier un prochain cap plus juste, plus vivant, plus incarné.
+  </p>
+
+  <p className="mt-4 text-sm leading-7 text-cv-muted">
+    Ce n’est pas seulement un décryptage. C’est une première traversée accompagnée.
+  </p>
+
+  <p className="mt-4 text-sm leading-7 text-cv-text/90">La lecture complète est incluse.</p>
+
+  <div className="mt-6">
+    <button
+      type="button"
+      onClick={() =>
+        window.open(
+          'https://koalendar.com/e/echange-avec-philippe-malbrunot',
+          '_blank',
+          'noopener,noreferrer'
+        )
+      }
+      className="inline-flex w-full items-center justify-center rounded-2xl border border-cv-gold/35 bg-cv-gold/12 px-5 py-4 text-sm font-medium text-cv-text transition hover:bg-cv-gold/20"
+    >
+      Réserver ma séance
+    </button>
+  </div>
+</div>
               <h3 className="font-serif text-2xl text-cv-text">Séance avec Philippe</h3>
               <p className="mt-2 text-3xl text-cv-gold">97 €</p>
               <p className="mt-4 text-sm leading-7 text-cv-muted">
