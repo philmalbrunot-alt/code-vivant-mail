@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { FreeReading, QuizAnswers } from '@/lib/types';
 import { FREE_STORAGE_KEY } from '@/lib/storage';
-import { BrandHeader, Container, Label, Panel, PrimaryButton, SecondaryButton, Shell } from './ui';
+import { BrandHeader, Container, Label, Panel, PrimaryButton, Shell } from './ui';
 
 export function ResultClient() {
   const router = useRouter();
@@ -20,6 +20,7 @@ export function ResultClient() {
       router.replace('/');
       return;
     }
+
     try {
       const parsed = JSON.parse(raw) as { answers: QuizAnswers; reading: FreeReading };
       setAnswers(parsed.answers);
@@ -33,16 +34,23 @@ export function ResultClient() {
 
   async function checkout() {
     if (!answers) return;
+
     try {
       setCheckoutLoading(true);
       setError(null);
+
       const res = await fetch('/api/checkout/create', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(answers),
       });
+
       const data = await res.json();
-      if (!res.ok || !data.url) throw new Error(data?.error || 'Paiement indisponible.');
+
+      if (!res.ok || !data.url) {
+        throw new Error(data?.error || 'Paiement indisponible.');
+      }
+
       window.location.href = data.url;
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Paiement indisponible.');
@@ -65,9 +73,12 @@ export function ResultClient() {
     <Shell>
       <Container>
         <BrandHeader />
+
         <Panel>
           <Label>APERÇU GRATUIT</Label>
-          <h1 className="mt-4 font-serif text-4xl leading-tight text-cv-text md:text-6xl">Ce que votre portrait révèle</h1>
+          <h1 className="mt-4 font-serif text-4xl leading-tight text-cv-text md:text-6xl">
+            Ce que votre portrait révèle
+          </h1>
           <p className="mt-5 text-lg leading-8 text-cv-text/90">{reading.hero}</p>
           <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">{reading.reveal}</p>
         </Panel>
@@ -93,11 +104,11 @@ export function ResultClient() {
               <h3 className="font-serif text-2xl text-cv-text">Profil complet</h3>
               <p className="mt-2 text-3xl text-cv-gold">7 €</p>
               <p className="mt-4 text-sm leading-7 text-cv-muted">
-                Déverrouillez la lecture complète : le verrou principal, l’héritage invisible, le rapport à la légitimité,
-                l’élan retenu et la direction de bascule la plus juste. 
-              </p> 
+                Déverrouillez la lecture complète : le verrou principal, l’héritage invisible, le rapport à la
+                légitimité, l’élan retenu et la direction de bascule la plus juste.
+              </p>
               <p className="mt-4 text-sm leading-7 text-cv-muted">
-                Vous recevrez l'analyse complète par mail après paiement.
+                Vous recevrez l’analyse complète par mail après paiement.
               </p>
               <div className="mt-6">
                 <PrimaryButton onClick={checkout} disabled={checkoutLoading} className="w-full">
@@ -106,63 +117,44 @@ export function ResultClient() {
               </div>
             </div>
 
-          <div className="relative rounded-[24px] border border-cv-gold/30 bg-cv-panelAlt p-5 shadow-[0_0_0_1px_rgba(200,155,90,0.06)]">
-  <div className="absolute right-5 top-5 inline-flex items-center gap-2 rounded-full border border-cv-gold/30 bg-cv-gold/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-cv-gold">
-    <span aria-hidden="true">★</span>
-    <span>Recommandé</span>
-  </div>
+            <div className="relative rounded-[24px] border border-cv-gold/30 bg-cv-panelAlt p-5 shadow-[0_0_0_1px_rgba(200,155,90,0.06)]">
+              <div className="absolute right-5 top-5 inline-flex items-center gap-2 rounded-full border border-cv-gold/30 bg-cv-gold/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-cv-gold">
+                <span aria-hidden="true">★</span>
+                <span>Recommandé</span>
+              </div>
 
-  <h3 className="pr-28 font-serif text-2xl text-cv-text">Séance avec Philippe</h3>
-  <p className="mt-2 text-3xl text-cv-gold">97 €</p>
-
-  <p className="mt-4 text-sm leading-7 text-cv-muted">
-    1 h en visio pour sortir d’une logique de survie et retrouver une présence plus libre.
-  </p>
-
-  <p className="mt-4 text-sm leading-7 text-cv-muted">
-    Nous partons de votre lecture complète pour voir clair dans ce qui vous retient encore, remettre en
-    mouvement ce qui s’est figé, et clarifier un prochain cap plus juste, plus vivant, plus incarné.
-  </p>
-
-  <p className="mt-4 text-sm leading-7 text-cv-muted">
-    Ce n’est pas seulement un décryptage. C’est une première traversée accompagnée.
-  </p>
-
-  <p className="mt-4 text-sm leading-7 text-cv-text/90">La lecture complète est incluse.</p>
-
-  <div className="mt-6">
-    <button
-      type="button"
-      onClick={() =>
-        window.open(
-          'https://koalendar.com/e/echange-avec-philippe-malbrunot',
-          '_blank',
-          'noopener,noreferrer'
-        )
-      }
-      className="inline-flex w-full items-center justify-center rounded-2xl border border-cv-gold/35 bg-cv-gold/12 px-5 py-4 text-sm font-medium text-cv-text transition hover:bg-cv-gold/20"
-    >
-      Réserver ma séance
-    </button>
-  </div>
-</div>
-              <h3 className="font-serif text-2xl text-cv-text">Séance avec Philippe</h3>
+              <h3 className="pr-28 font-serif text-2xl text-cv-text">Séance avec Philippe</h3>
               <p className="mt-2 text-3xl text-cv-gold">97 €</p>
+
               <p className="mt-4 text-sm leading-7 text-cv-muted">
                 1 h en visio pour sortir d’une logique de survie et retrouver une présence plus libre.
               </p>
-            
+
+              <p className="mt-4 text-sm leading-7 text-cv-muted">
+                Nous partons de votre lecture complète pour voir clair dans ce qui vous retient encore, remettre en
+                mouvement ce qui s’est figé, et clarifier un prochain cap plus juste, plus vivant, plus incarné.
+              </p>
+
               <p className="mt-4 text-sm leading-7 text-cv-muted">
                 Ce n’est pas seulement un décryptage. C’est une première traversée accompagnée.
               </p>
+
               <p className="mt-4 text-sm leading-7 text-cv-text/90">La lecture complète est incluse.</p>
+
               <div className="mt-6">
-                <SecondaryButton
-                  onClick={() => window.open('https://koalendar.com/e/echange-avec-philippe-malbrunot', '_blank', 'noopener,noreferrer')}
-                  className="w-full"
+                <button
+                  type="button"
+                  onClick={() =>
+                    window.open(
+                      'https://koalendar.com/e/echange-avec-philippe-malbrunot',
+                      '_blank',
+                      'noopener,noreferrer'
+                    )
+                  }
+                  className="inline-flex w-full items-center justify-center rounded-2xl border border-cv-gold/35 bg-cv-gold/12 px-5 py-4 text-sm font-medium text-cv-text transition hover:bg-cv-gold/20"
                 >
                   Réserver ma séance
-                </SecondaryButton>
+                </button>
               </div>
             </div>
           </div>
