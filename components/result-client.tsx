@@ -119,7 +119,7 @@ export function ResultClient() {
               </p>
               <div className="mt-6">
                 <PrimaryButton onClick={checkout} disabled={checkoutLoading} className="w-full">
-                  {checkoutLoading ? 'Ouverture du paiement…' : 'Déverrouiller mon portrait complet'}
+                  {checkoutLoading ? 'Ouverture du paiement…' : 'Recevoir mon portrait complet'}
                 </PrimaryButton>
               </div>
             </div>
