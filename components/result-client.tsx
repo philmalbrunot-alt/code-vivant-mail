@@ -134,7 +134,7 @@ export function ResultClient() {
               <p className="mt-2 text-3xl text-cv-gold">97 €</p>
 
               <p className="mt-4 text-sm leading-7 text-cv-muted">
-                1 h en visio pour sortir d’une logique de survie et retrouver une présence plus libre.
+                1 h en visio pour clarifier ce qui vous retient encore et amorcer une première bascule concrète.
               </p>
 
               <p className="mt-4 text-sm leading-7 text-cv-muted">
