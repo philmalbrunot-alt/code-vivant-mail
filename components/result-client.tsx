@@ -115,7 +115,7 @@ export function ResultClient() {
                Idéal si vous voulez déjà comprendre plus clairement ce qui se joue en vous, à votre rythme.
               </p>
               <p className="mt-4 text-sm leading-7 text-cv-muted">
-                Vous recevrez l’analyse complète par mail après paiement.</br>
+                Vous recevrez l’analyse complète par mail quelques minutes après paiement. 
               </p>
               <div className="mt-6">
                 <PrimaryButton onClick={checkout} disabled={checkoutLoading} className="w-full">
