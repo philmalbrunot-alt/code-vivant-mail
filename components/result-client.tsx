@@ -94,7 +94,10 @@ export function ResultClient() {
               <p className="mt-2 text-3xl text-cv-gold">7 €</p>
               <p className="mt-4 text-sm leading-7 text-cv-muted">
                 Déverrouillez la lecture complète : le verrou principal, l’héritage invisible, le rapport à la légitimité,
-                l’élan retenu et la direction de bascule la plus juste. Vous le recevrez par mail après paiement.
+                l’élan retenu et la direction de bascule la plus juste. 
+              </p> 
+              <p className="mt-4 text-sm leading-7 text-cv-muted">
+                Vous recevrez l'analyse complète par mail après paiement.
               </p>
               <div className="mt-6">
                 <PrimaryButton onClick={checkout} disabled={checkoutLoading} className="w-full">
