@@ -98,7 +98,7 @@ export function ResultClient() {
           <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">{reading.locked.body}</p>
           <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">{reading.locked.body2}</p>
           <p className="mt-4 text-sm leading-7 text-cv-text/90">{reading.locked.line}</p>
-          <h4 className="mt-8 text-center text-sm leading-7 text-cv-text/90 md:text-base">Vous pouvez soit approfondir ce portrait à votre rythme, soit réserver une séance pour clarifier directement ce qui vous retient encore.</h4>
+            <h3 className="mt-8 text-center font-serif text-2xl leading-tight text-cv-text md:text-3xl">Vous pouvez soit approfondir ce portrait à votre rythme, soit réserver une séance pour clarifier directement ce qui vous retient encore.</h3>
 
 
           <div className="mt-8 grid gap-4 md:grid-cols-2">
@@ -115,7 +115,7 @@ export function ResultClient() {
                Idéal si vous voulez déjà comprendre plus clairement ce qui se joue en vous, à votre rythme.
               </p>
               <p className="mt-4 text-sm leading-7 text-cv-muted">
-                Vous recevrez l’analyse complète par mail après paiement.
+                Vous recevrez l’analyse complète par mail après paiement.</br>
               </p>
               <div className="mt-6">
                 <PrimaryButton onClick={checkout} disabled={checkoutLoading} className="w-full">
