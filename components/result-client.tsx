@@ -104,8 +104,10 @@ export function ResultClient() {
               <h3 className="font-serif text-2xl text-cv-text">Profil complet</h3>
               <p className="mt-2 text-3xl text-cv-gold">7 €</p>
               <p className="mt-4 text-sm leading-7 text-cv-muted">
-                Déverrouillez la lecture complète : le verrou principal, l’héritage invisible, le rapport à la
-                légitimité, l’élan retenu et la direction de bascule la plus juste.
+                Recevez la lecture complète de votre profil : le verrou principal, l’héritage invisible, le rapport à la légitimité, l’élan retenu et la bascule la plus juste pour vous.
+              </p>
+              <p className="mt-4 text-sm leading-7 text-cv-muted">
+               Idéal si vous voulez déjà comprendre plus clairement ce qui se joue en vous, à votre rythme.
               </p>
               <p className="mt-4 text-sm leading-7 text-cv-muted">
                 Vous recevrez l’analyse complète par mail après paiement.
@@ -123,7 +125,7 @@ export function ResultClient() {
                 <span>Recommandé</span>
               </div>
 
-              <h3 className="pr-28 font-serif text-2xl text-cv-text">Séance avec Philippe</h3>
+              <h3 className="pr-28 font-serif text-2xl text-cv-text">Séance de clarification</h3>
               <p className="mt-2 text-3xl text-cv-gold">97 €</p>
 
               <p className="mt-4 text-sm leading-7 text-cv-muted">
