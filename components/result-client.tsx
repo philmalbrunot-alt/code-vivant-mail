@@ -93,7 +93,8 @@ export function ResultClient() {
               <h3 className="font-serif text-2xl text-cv-text">Profil complet</h3>
               <p className="mt-2 text-3xl text-cv-gold">7 €</p>
               <p className="mt-4 text-sm leading-7 text-cv-muted">
-                Déverrouillez la lecture complète. Vous la recevrez par email après paiement.
+                Déverrouillez la lecture complète : le verrou principal, l’héritage invisible, le rapport à la légitimité,
+                l’élan retenu et la direction de bascule la plus juste. Vous le recevrez par mail après paiement.
               </p>
               <div className="mt-6">
                 <PrimaryButton onClick={checkout} disabled={checkoutLoading} className="w-full">
@@ -106,8 +107,16 @@ export function ResultClient() {
               <h3 className="font-serif text-2xl text-cv-text">Séance avec Philippe</h3>
               <p className="mt-2 text-3xl text-cv-gold">97 €</p>
               <p className="mt-4 text-sm leading-7 text-cv-muted">
-                1 h en visio pour travailler l’endroit exact où votre verrou se rejoue aujourd’hui.
+                1 h en visio pour sortir d’une logique de survie et retrouver une présence plus libre.
               </p>
+              <p className="mt-4 text-sm leading-7 text-cv-muted">
+                Nous partons de votre lecture complète pour voir clair dans ce qui vous retient encore, remettre en
+                mouvement ce qui s’est figé, et clarifier un prochain cap plus juste, plus vivant, plus incarné.
+              </p>
+              <p className="mt-4 text-sm leading-7 text-cv-muted">
+                Ce n’est pas seulement un décryptage. C’est une première traversée accompagnée.
+              </p>
+              <p className="mt-4 text-sm leading-7 text-cv-text/90">La lecture complète est incluse.</p>
               <div className="mt-6">
                 <SecondaryButton
                   onClick={() => window.open('https://koalendar.com/e/echange-avec-philippe-malbrunot', '_blank', 'noopener,noreferrer')}
