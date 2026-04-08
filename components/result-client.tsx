@@ -109,10 +109,7 @@ export function ResultClient() {
               <p className="mt-4 text-sm leading-7 text-cv-muted">
                 1 h en visio pour sortir d’une logique de survie et retrouver une présence plus libre.
               </p>
-              <p className="mt-4 text-sm leading-7 text-cv-muted">
-                Nous partons de votre lecture complète pour voir clair dans ce qui vous retient encore, remettre en
-                mouvement ce qui s’est figé, et clarifier un prochain cap plus juste, plus vivant, plus incarné.
-              </p>
+            
               <p className="mt-4 text-sm leading-7 text-cv-muted">
                 Ce n’est pas seulement un décryptage. C’est une première traversée accompagnée.
               </p>
