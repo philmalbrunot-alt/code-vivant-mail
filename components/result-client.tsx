@@ -98,13 +98,18 @@ export function ResultClient() {
           <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">{reading.locked.body}</p>
           <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">{reading.locked.body2}</p>
           <p className="mt-4 text-sm leading-7 text-cv-text/90">{reading.locked.line}</p>
+          <h4 className="mt-8 text-center text-sm leading-7 text-cv-text/90 md:text-base">Vous pouvez soit approfondir ce portrait à votre rythme, soit réserver une séance pour clarifier directement ce qui vous retient encore.</h4>
+
 
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             <div className="rounded-[24px] border border-cv-gold/20 bg-cv-panelAlt p-5">
               <h3 className="font-serif text-2xl text-cv-text">Profil complet</h3>
               <p className="mt-2 text-3xl text-cv-gold">7 €</p>
               <p className="mt-4 text-sm leading-7 text-cv-muted">
-                Recevez la lecture complète de votre profil : le verrou principal, l’héritage invisible, le rapport à la légitimité, l’élan retenu et la bascule la plus juste pour vous.
+                Recevez la lecture complète de votre profil :
+              </p>
+               <p className="mt-4 text-sm leading-7 text-cv-muted">
+                le verrou principal, l’héritage invisible, le rapport à la légitimité, l’élan retenu et la bascule la plus juste pour vous.
               </p>
               <p className="mt-4 text-sm leading-7 text-cv-muted">
                Idéal si vous voulez déjà comprendre plus clairement ce qui se joue en vous, à votre rythme.
