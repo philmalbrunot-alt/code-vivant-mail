@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html, body { min-height: 100%; }
+body {
+  @apply bg-cv-bg text-cv-text font-sans antialiased;
+  background-image:
+    radial-gradient(circle at top, rgba(209,167,101,0.08), transparent 32%),
+    linear-gradient(180deg, #070311 0%, #090413 100%);
+}
+
+.gold-panel {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+  border: 1px solid rgba(209,167,101,0.15);
+  box-shadow: 0 20px 80px rgba(0,0,0,0.28);
+}

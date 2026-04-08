@@ -1,0 +1,138 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { BRAND, ENERGY_OPTIONS, FOCUS_OPTIONS, STRESS_OPTIONS } from '@/lib/constants';
+import type { QuizAnswers } from '@/lib/types';
+import { FREE_STORAGE_KEY } from '@/lib/storage';
+import { BadgeRow, BrandHeader, Container, Label, Panel, PrimaryButton, ProgressBar, SecondaryButton, Shell } from './ui';
+
+const initialAnswers: QuizAnswers = {
+  firstName: '',
+  birthDate: '',
+  birthPlace: '',
+  currentFocus: '',
+  energyState: '',
+  stressResponse: '',
+};
+
+const steps = [
+  { key: 'firstName', title: 'Votre prénom', type: 'text', placeholder: 'Ex. Martin' },
+  { key: 'birthDate', title: 'Votre date de naissance', type: 'text', placeholder: 'JJ/MM/AAAA' },
+  { key: 'birthPlace', title: 'Votre lieu de naissance', type: 'text', placeholder: 'Ex. Aix-les-Bains' },
+  { key: 'currentFocus', title: 'Qu’est-ce qui vous amène ici ?', type: 'choice', options: FOCUS_OPTIONS },
+  { key: 'energyState', title: 'En ce moment, votre niveau d’énergie ressemble à…', type: 'choice', options: ENERGY_OPTIONS },
+  { key: 'stressResponse', title: 'Quand ça ne va pas, vous faites quoi le plus souvent ?', type: 'choice', options: STRESS_OPTIONS },
+] as const;
+
+export function HomeClient() {
+  const router = useRouter();
+  const [started, setStarted] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [answers, setAnswers] = useState<QuizAnswers>(initialAnswers);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const step = steps[index];
+  const progress = ((index + 1) / steps.length) * 100;
+  const value = answers[step.key];
+  const canContinue = typeof value === 'string' && value.trim().length > 0;
+
+  function updateValue(v: string) {
+    setAnswers((prev) => ({ ...prev, [step.key]: v }));
+  }
+
+  async function submit() {
+    try {
+      setIsSubmitting(true);
+      setError(null);
+      const res = await fetch('/api/analyze/free', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(answers),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || 'Impossible de générer le portrait.');
+      localStorage.setItem(FREE_STORAGE_KEY, JSON.stringify({ answers, reading: data.reading }));
+      router.push('/resultat');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Impossible de générer le portrait.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  function next() {
+    if (!canContinue) return;
+    if (index === steps.length - 1) {
+      void submit();
+      return;
+    }
+    setIndex((prev) => prev + 1);
+  }
+
+  return (
+    <Shell>
+      <Container>
+        <BrandHeader />
+        {!started ? (
+          <Panel className="py-12 md:py-16">
+            <div className="mx-auto max-w-3xl text-center">
+              <Label>{BRAND.label}</Label>
+              <h1 className="mt-4 font-serif text-4xl leading-tight text-cv-text md:text-7xl">{BRAND.title}</h1>
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-cv-text/90 md:text-2xl">{BRAND.subtitle}</p>
+              <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">{BRAND.body}</p>
+              <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">{BRAND.method}</p>
+              <BadgeRow items={BRAND.badges} />
+              <div className="mt-10 flex justify-center">
+                <PrimaryButton onClick={() => setStarted(true)}>Voir mon portrait</PrimaryButton>
+              </div>
+            </div>
+          </Panel>
+        ) : (
+          <Panel className="mt-8">
+            <ProgressBar value={progress} />
+            <div className="mx-auto max-w-3xl">
+              <h2 className="text-center font-serif text-3xl text-cv-text md:text-4xl">{step.title}</h2>
+              <div className="mt-8">
+                {step.type === 'text' ? (
+                  <input
+                    value={value}
+                    onChange={(e) => updateValue(e.target.value)}
+                    placeholder={step.placeholder}
+                    className="w-full rounded-2xl border border-cv-line bg-cv-panelAlt px-5 py-4 text-base text-cv-text outline-none placeholder:text-cv-faint"
+                  />
+                ) : (
+                  <div className="space-y-3">
+                    {step.options.map((option) => {
+                      const selected = value === option;
+                      return (
+                        <button
+                          key={option}
+                          type="button"
+                          onClick={() => updateValue(option)}
+                          className={`w-full rounded-2xl border px-5 py-4 text-left text-sm leading-7 transition ${
+                            selected ? 'border-cv-gold/30 bg-cv-gold/10 text-cv-text' : 'border-cv-line bg-cv-panelAlt text-cv-muted hover:border-cv-gold/15'
+                          }`}
+                        >
+                          {option}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+              {error ? <p className="mt-4 text-sm text-red-300">{error}</p> : null}
+              <div className="mt-8 flex items-center justify-between gap-4">
+                <SecondaryButton onClick={() => setIndex((prev) => (prev === 0 ? 0 : prev - 1))}>Retour</SecondaryButton>
+                <PrimaryButton onClick={next} disabled={!canContinue || isSubmitting}>
+                  {index === steps.length - 1 ? (isSubmitting ? 'Préparation…' : 'Voir mon portrait') : 'Continuer'}
+                </PrimaryButton>
+              </div>
+            </div>
+          </Panel>
+        )}
+      </Container>
+    </Shell>
+  );
+}
