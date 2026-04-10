@@ -21,7 +21,24 @@ export default function MerciPage() {
 
               Pensez à vérifier vos spams si vous ne la voyez pas arriver.
             </p>
+            
           </div>
+          div className="mt-6">
+                <button
+                  type="button"
+                  onClick={() =>
+                    window.open(
+                      'https://koalendar.com/e/echange-avec-philippe-malbrunot',
+                      '_blank',
+                      'noopener,noreferrer'
+                    )
+                  }
+                  className="inline-flex w-full items-center justify-center rounded-2xl border border-cv-gold/35 bg-cv-gold/12 px-5 py-4 text-sm font-medium text-cv-text transition hover:bg-cv-gold/20"
+                >
+                  Réserver ma séance
+                </button>
+              </div>
+        
         </Panel>
       </Container>
     </Shell>
