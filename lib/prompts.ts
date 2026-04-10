@@ -33,7 +33,7 @@ Les trois réponses suivantes doivent influencer concrètement le contenu :
 2. "Niveau d'énergie" doit colorer le portrait : usure, retenue, tension, dispersion, surcharge, lucidité, besoin de retrait ou relance.
 3. "Réaction dominante" doit structurer le mécanisme de protection principal décrit dans la lecture.
 
-Il ne suffit pas de citer ces réponses.
+Il ne suffit pas de citer ces réponses. Même si c'est important.
 Il faut en déduire un portrait cohérent, spécifique et incarné.
 
 INTERDICTION :
@@ -71,7 +71,7 @@ Il doit articuler clairement :
 - l’élan retenu
 
 Pour chaque section :
-- une idée principale
+- une idée forte principale
 - une tension
 - une conséquence
 - une légère ouverture
@@ -98,10 +98,10 @@ Réponds en JSON strict avec cette structure exacte :
 }
 
 Contraintes de longueur et de style :
-- 650 à 800 mots maximum au total
+- 600 à 750 mots maximum au total
 - "hero" = 1 à 2 phrases
 - "reveal" = 3 à 5 phrases denses et fortes
-- chaque body de section = environ 60 à 90 mots
+- chaque body de section = environ 50 à 80 mots
 - le bloc locked doit être particulièrement désirable et créer une vraie tension vers la suite
 - chaque bloc doit être utile, pas décoratif
 - pas de markdown
