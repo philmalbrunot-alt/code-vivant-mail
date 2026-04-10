@@ -16,9 +16,11 @@ export default function MerciPage() {
             </p>
             <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">
               Votre lecture complète entre maintenant dans une profondeur plus précise : verrou principal, héritage invisible, rapport à la valeur, élan retenu et première direction de bascule.
-
+            </p>
+            <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">  
               Vous la recevrez à l’adresse email renseignée au paiement dans quelques minutes.
-
+            </p>
+            <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">
               Pensez à vérifier vos spams si vous ne la voyez pas arriver.
             </p>
             
