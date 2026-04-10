@@ -9,13 +9,17 @@ export default function MerciPage() {
           <div className="mx-auto max-w-3xl text-center">
             <Label>PAIEMENT CONFIRMÉ</Label>
             <h1 className="mt-4 font-serif text-4xl leading-tight text-cv-text md:text-6xl">
-              Votre lecture complète arrive par email
+              Votre lecture complète est en préparation
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-cv-text/90 md:text-2xl">
               Merci. Votre paiement a bien été validé.
             </p>
             <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">
-              Votre lecture complète sera envoyée à l’adresse email renseignée au paiement. Pensez à vérifier vos spams si vous ne la voyez pas d’ici quelques minutes.
+              Votre lecture complète entre maintenant dans une profondeur plus précise : verrou principal, héritage invisible, rapport à la valeur, élan retenu et première direction de bascule.
+
+              Vous la recevrez à l’adresse email renseignée au paiement dans quelques minutes.
+
+              Pensez à vérifier vos spams si vous ne la voyez pas arriver.
             </p>
           </div>
         </Panel>
