@@ -109,13 +109,7 @@ export function ResultClient() {
                 Recevez la lecture complète de votre profil :
               </p>
                <p className="mt-4 text-sm leading-7 text-cv-muted">
-                le verrou principal, l’héritage invisible, le rapport à la légitimité, l’élan retenu et la bascule la plus juste pour vous.
-              </p>
-              <p className="mt-4 text-sm leading-7 text-cv-muted">
-               Idéal si vous voulez déjà comprendre plus clairement ce qui se joue en vous, à votre rythme.
-              </p>
-              <p className="mt-4 text-sm leading-7 text-cv-muted">
-                Vous recevrez l’analyse complète par mail quelques minutes après paiement. 
+                le verrou principal, l’héritage invisible, le rapport à la légitimité, l’élan retenu et la bascule la plus juste pour vous. 
               </p>
               <div className="mt-6">
                 <PrimaryButton onClick={checkout} disabled={checkoutLoading} className="w-full">
@@ -137,14 +131,7 @@ export function ResultClient() {
                 1 h en visio pour clarifier ce qui vous retient encore et amorcer une première bascule concrète.
               </p>
 
-              <p className="mt-4 text-sm leading-7 text-cv-muted">
-                Nous partons de votre lecture complète pour voir clair dans ce qui vous retient encore, remettre en
-                mouvement ce qui s’est figé, et clarifier un prochain cap plus juste, plus vivant, plus incarné.
-              </p>
-
-              <p className="mt-4 text-sm leading-7 text-cv-muted">
-                Ce n’est pas seulement un décryptage. C’est une première traversée accompagnée.
-              </p>
+      
 
               <p className="mt-4 text-sm leading-7 text-cv-text/90">La lecture complète est incluse.</p>
 
