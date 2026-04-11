@@ -41,14 +41,12 @@ export function buildFallbackFree(answers: QuizAnswers): FreeReading {
       },
     ],
     locked: {
-      label: 'CE QUE VOUS N’AVEZ PAS ENCORE VU',
-      title: 'Le vrai nœud n’est pas encore révélé',
-      body:
-        'Le verrou principal n’est pas celui que vous montrez. Il est plus discret et plus ancien. Il touche à votre droit d’exister sans surcontrôle, sans compensation, sans devoir mériter votre place en vous retenant.',
-      body2:
-        'Tant que ce point reste invisible, vous avancerez par correction plus que par élan. La suite va là où votre tension prend sa source… et là où elle peut enfin commencer à céder.',
-      line:
-        'La lecture complète révèle le verrou principal, la peur racine, le rapport à la légitimité, l’élan retenu et la direction de bascule la plus juste.',
-    },
+  label: 'CE QUE VOUS N’AVEZ PAS ENCORE VU',
+  title: 'Le vrai nœud n’est pas encore révélé',
+  body:
+    'Le verrou principal n’est pas celui que vous montrez. Il est plus discret et plus ancien. Il touche à votre droit d’exister sans surcontrôle, sans compensation, sans devoir mériter votre place en vous retenant. Tant que ce point reste invisible, vous avancerez par correction plus que par élan. La suite va là où votre tension prend sa source… et là où elle peut enfin commencer à céder.',
+  line:
+    'La lecture complète révèle le verrou principal, la peur racine, le rapport à la légitimité, l’élan retenu et la direction de bascule la plus juste.',
+},
   };
 }
