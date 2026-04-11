@@ -142,7 +142,7 @@ export function ResultClient() {
             {heroParagraphs.map((paragraph, index) => (
               <h1
                 key={`hero-${index}`}
-                className="font-serif text-4xl leading-tight text-cv-text md:text-6xl"
+                className="font-serif text-3xl leading-tight text-cv-text md:text-5xl"
               >
                 {paragraph}
               </h1>
