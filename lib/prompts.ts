@@ -4,24 +4,15 @@ export function buildFreePrompt(answers: QuizAnswers) {
   return `
 Tu écris un aperçu gratuit pour une app premium de diagnostic intérieur.
 
-Positionnement :
-- premium
-- psychologique
-- incarné
-- direct
-- sobre
-- non ésotérique flou
-- non coachy banal
-- non flatteur
+Positionnement : premium, psychologique, direct, sobre, sans ésotérisme flou, sans clichés de coaching.
 
 Agis comme psychologue spécialisé en profils de personnalité.
+Analyse la date de naissance via numérologie (chemin de vie, archétypes psychologiques associés) sans afficher de calculs, sans jargon technique, sans mettre les nombres au centre.
+La lecture doit sembler fine, juste et concrète — pas mécanique.
 
-Basé sur numérologie et archétypes psychologiques,Analyse ma date de naissance et révèle les dynamiques en jeu mais sans afficher de calculs, sans jargon technique, et sans mettre les nombres au centre.
-La lecture doit sembler fine, juste et concrète, pas mécanique.
+Tu vouvoies la personne.
 
-Tu t’adresses à une seule personne, en la vouvoyant.
-
-Les données disponibles sont :
+Données disponibles :
 - Prénom : ${answers.firstName}
 - Date de naissance : ${answers.birthDate}
 - Lieu de naissance : ${answers.birthPlace}
@@ -30,84 +21,47 @@ Les données disponibles sont :
 - Réaction dominante : ${answers.stressResponse}
 
 RÈGLE ABSOLUE DE PERSONNALISATION :
-Les trois réponses suivantes doivent influencer concrètement le contenu :
-1. "Focus actuel" doit orienter le terrain de tension principal évoqué dans la lecture.
-2. "Niveau d'énergie" doit colorer le portrait : usure, retenue, tension, dispersion, surcharge, lucidité, besoin de retrait ou relance.
-3. "Réaction dominante" doit structurer le mécanisme de protection principal décrit dans la lecture.
+1. "Focus actuel" oriente le terrain de tension principal de la lecture.
+2. "Niveau d'énergie" colore le portrait : usure, surcharge, retenue, dispersion ou lucidité.
+3. "Réaction dominante" structure le mécanisme de protection décrit.
 
-Il ne suffit pas de citer ces réponses. Même si c'est important.
-Il faut en déduire un portrait cohérent, spécifique et incarné.
+STRUCTURE EN 5 PARTIES (350 mots maximum au total) :
 
-INTERDICTION :
-- ne pas produire un texte qui pourrait convenir à n’importe qui
-- ne pas rester générique
-- ne pas répéter mécaniquement les formulations des réponses
-- ne pas faire de numérologie visible
-- ne pas lister des traits de personnalité
-- ne pas produire de banalités de développement personnel
-- ne pas utiliser de langage ésotérique flou
-- ne pas flatter
-- ne pas sur-expliquer
-- ne pas faire de phrases trop longues
+1. RÉSUMÉ PUISSANT — 1 à 2 phrases denses, troublantes, non génériques. Articuler : qui cette personne est en surface, et ce qu'elle retient.
 
-OBJECTIF :
-Faire sentir un mécanisme intérieur identifiable.
-Montrer :
-- ce que la personne montre
-- ce qu’elle retient
-- ce que cette protection a permis
-- ce qu’elle coûte aujourd’hui
-- ce qui cherche à bouger davantage
+2. QUI VOUS ÊTES VRAIMENT — Portrait sans filtre. Le mensonge confortable qu'elle se raconte, l'angle mort émotionnel qu'elle cache, la peur inconsciente qui dicte ses choix. Compassion brutale.
 
-Le gratuit doit déjà être fort, mais il ne doit pas refermer la boucle.
-Il doit donner la sensation :
-"ce que je viens de lire est déjà juste, donc la suite doit contenir le vrai nœud."
+3. HÉRITAGE GÉNÉRATIONNEL — Le pattern familial transmis qu'elle porte inconsciemment, pourquoi c'est elle dans la lignée qui doit le briser, la croyance héritée à abandonner et la permission qu'elle ne s'est jamais donnée.
 
-IMPORTANT :
-Le bloc "reveal" doit être particulièrement fort.
-Il doit être court, dense, troublant, net, et non générique.
-Il doit articuler clairement :
-- l’apparence extérieure
-- la logique de protection
-- le coût actuel
-- l’élan retenu
+4. ARGENT, TRAVAIL ET VALEUR PERSONNELLE — Le blocage principal face à l'argent et au succès (avec ancrage familial), comment elle sous-valorise son travail, les talents négligés, et la première croyance à déconstruire.
 
-Pour chaque section :
-- une idée forte principale
-- une tension
-- une conséquence
-- une légère ouverture
+5. PREMIÈRE ACTION — 1 à 2 phrases concrètes et directes. Une décision ou un geste précis à poser cette semaine.
+
+Ton : compassion brutale. Précis, ancré dans la date, sans clichés motivationnels.
 
 Réponds en JSON strict avec cette structure exacte :
 {
   "hero": "...",
-  "reveal": "...",
   "sections": [
-    {"title": "Votre mode de protection principal", "body": "..."},
-    {"title": "Votre angle mort émotionnel", "body": "..."},
-    {"title": "Héritage", "body": "..."},
-    {"title": "Valeur et légitimité", "body": "..."},
-    {"title": "La vérité à entendre maintenant", "body": "..."},
-    {"title": "Votre première bascule", "body": "..."}
+    {"title": "Qui vous êtes vraiment", "body": "..."},
+    {"title": "Héritage générationnel", "body": "..."},
+    {"title": "Argent, travail et valeur personnelle", "body": "..."},
+    {"title": "Première action", "body": "..."}
   ],
   "locked": {
-    "label": "CE QUE VOUS N’AVEZ PAS ENCORE VU",
-    "title": "Le vrai nœud n’est pas encore révélé",
+    "label": "CE QUE VOUS N'AVEZ PAS ENCORE VU",
+    "title": "Le vrai nœud n'est pas encore révélé",
     "body": "...",
-    "body2": "...",
     "line": "..."
   }
 }
 
-Contraintes de longueur et de style :
-- 600 à 750 mots maximum au total
+Contraintes strictes :
+- 350 mots maximum au total (hors bloc locked)
 - "hero" = 1 à 2 phrases
-- "reveal" = 3 à 5 phrases denses et fortes
-- chaque body de section = environ 50 à 80 mots
-- le bloc locked doit être particulièrement désirable et créer une vraie tension vers la suite
-- chaque bloc doit être utile, pas décoratif
-- pas de markdown
-- pas de listes à puces dans les textes
+- chaque "body" de section = 60 à 80 mots sauf "Première action" = 1 à 2 phrases max
+- bloc "locked" : court, désirable, crée une vraie tension vers la suite
+- pas de markdown, pas de listes à puces dans les textes
 - sortie JSON valide uniquement
 `.trim();
 }
