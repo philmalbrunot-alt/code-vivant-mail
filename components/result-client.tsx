@@ -1,15 +1,62 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import type { FreeReading, QuizAnswers } from '@/lib/types';
+import type { QuizAnswers } from '@/lib/types';
 import { FREE_STORAGE_KEY } from '@/lib/storage';
 import { BrandHeader, Container, Label, Panel, PrimaryButton, Shell } from './ui';
+
+type ResultSection = {
+  title: string;
+  body: string;
+};
+
+type ResultLocked = {
+  label: string;
+  title: string;
+  body: string;
+  line: string;
+};
+
+type ResultReading = {
+  hero: string;
+  sections: ResultSection[];
+  locked: ResultLocked;
+};
+
+function isResultReading(value: unknown): value is ResultReading {
+  if (!value || typeof value !== 'object') return false;
+
+  const v = value as Record<string, unknown>;
+
+  return (
+    typeof v.hero === 'string' &&
+    Array.isArray(v.sections) &&
+    v.sections.every((section) => {
+      if (!section || typeof section !== 'object') return false;
+      const s = section as Record<string, unknown>;
+      return typeof s.title === 'string' && typeof s.body === 'string';
+    }) &&
+    !!v.locked &&
+    typeof v.locked === 'object' &&
+    typeof (v.locked as Record<string, unknown>).label === 'string' &&
+    typeof (v.locked as Record<string, unknown>).title === 'string' &&
+    typeof (v.locked as Record<string, unknown>).body === 'string' &&
+    typeof (v.locked as Record<string, unknown>).line === 'string'
+  );
+}
+
+function splitHero(text: string) {
+  return text
+    .split(/(?<=[.!?])\s+/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
 
 export function ResultClient() {
   const router = useRouter();
   const [answers, setAnswers] = useState<QuizAnswers | null>(null);
-  const [reading, setReading] = useState<FreeReading | null>(null);
+  const [reading, setReading] = useState<ResultReading | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
@@ -22,7 +69,16 @@ export function ResultClient() {
     }
 
     try {
-      const parsed = JSON.parse(raw) as { answers: QuizAnswers; reading: FreeReading };
+      const parsed = JSON.parse(raw) as {
+        answers?: QuizAnswers;
+        reading?: unknown;
+      };
+
+      if (!parsed.answers || !isResultReading(parsed.reading)) {
+        router.replace('/');
+        return;
+      }
+
       setAnswers(parsed.answers);
       setReading(parsed.reading);
     } catch {
@@ -58,6 +114,11 @@ export function ResultClient() {
     }
   }
 
+  const heroParagraphs = useMemo(() => {
+    if (!reading) return [];
+    return splitHero(reading.hero);
+  }, [reading]);
+
   if (loading || !reading) {
     return (
       <Shell>
@@ -76,11 +137,17 @@ export function ResultClient() {
 
         <Panel>
           <Label>APERÇU GRATUIT</Label>
-          <h1 className="mt-4 font-serif text-4xl leading-tight text-cv-text md:text-6xl">
-            Ce que votre portrait révèle
-          </h1>
-          <p className="mt-5 text-lg leading-8 text-cv-text/90">{reading.hero}</p>
-          <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">{reading.reveal}</p>
+
+          <div className="mt-4 space-y-4">
+            {heroParagraphs.map((paragraph, index) => (
+              <h1
+                key={`hero-${index}`}
+                className="font-serif text-4xl leading-tight text-cv-text md:text-6xl"
+              >
+                {paragraph}
+              </h1>
+            ))}
+          </div>
         </Panel>
 
         <div className="mt-6 space-y-4">
@@ -96,10 +163,11 @@ export function ResultClient() {
           <Label>{reading.locked.label}</Label>
           <h2 className="mt-3 font-serif text-3xl text-cv-text">{reading.locked.title}</h2>
           <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">{reading.locked.body}</p>
-          <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">{reading.locked.body2}</p>
           <p className="mt-4 text-sm leading-7 text-cv-text/90">{reading.locked.line}</p>
-            <h3 className="mt-8 text-center font-serif text-2xl leading-tight text-cv-text md:text-3xl">Vous pouvez soit approfondir ce portrait à votre rythme, soit réserver une séance pour clarifier directement ce qui vous retient encore.</h3>
 
+          <h3 className="mt-8 text-center font-serif text-2xl leading-tight text-cv-text md:text-3xl">
+            Vous pouvez soit approfondir ce portrait à votre rythme, soit réserver une séance pour clarifier directement ce qui vous retient encore.
+          </h3>
 
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             <div className="rounded-[24px] border border-cv-gold/20 bg-cv-panelAlt p-5">
@@ -108,8 +176,8 @@ export function ResultClient() {
               <p className="mt-4 text-sm leading-7 text-cv-muted">
                 Recevez la lecture complète de votre profil :
               </p>
-               <p className="mt-4 text-sm leading-7 text-cv-muted">
-                le verrou principal, l’héritage invisible, le rapport à la légitimité, l’élan retenu et la bascule la plus juste pour vous. 
+              <p className="mt-4 text-sm leading-7 text-cv-muted">
+                le verrou principal, l’héritage invisible, le rapport à la légitimité, l’élan retenu et la bascule la plus juste pour vous.
               </p>
               <div className="mt-6">
                 <PrimaryButton onClick={checkout} disabled={checkoutLoading} className="w-full">
@@ -130,8 +198,6 @@ export function ResultClient() {
               <p className="mt-4 text-sm leading-7 text-cv-muted">
                 1 h en visio pour clarifier ce qui vous retient encore et amorcer une première bascule concrète.
               </p>
-
-      
 
               <p className="mt-4 text-sm leading-7 text-cv-text/90">La lecture complète est incluse.</p>
 
