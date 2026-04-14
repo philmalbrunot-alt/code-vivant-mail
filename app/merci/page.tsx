@@ -32,7 +32,9 @@ export default function MerciPage() {
               Pensez à vérifier vos spams si vous ne la voyez pas arriver.
             </p>
             <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">
-              Si vous souhaitez être accompagné pour clarifier cela plus directement, vous pouvez aussi réserver une séance dès maintenant.
+              Certaines personnes préfèrent lire d’abord.
+              D’autres sentent déjà qu’il faut aller directement au point vivant.
+              Dans ce cas, la séance de clarification est l’étape la plus juste.
             </p>
             <div className="mt-8">
               <a
