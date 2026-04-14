@@ -4,7 +4,9 @@ export const BRAND = {
   subtitle:
     'Répondez à quelques questions et recevez un premier décryptage de votre mode de protection, de votre blocage central et de ce qui cherche à bouger en vous.',
   body:
-    'Votre portrait s’appuie sur votre date de naissance, vos réponses, et une lecture psychospirituelle et systémique de vos schémas profonds.',
+    'Questionnaire gratuit sans récolte de votre email.',
+  method:
+    'Votre portrait s’appuie sur la numérologie, une lecture psychospirituelle et une approche systémique de vos schémas profonds.',
 
   badges: ['DIAGNOSTIC EXPRESS', 'APERÇU GRATUIT', 'LECTURE IMMÉDIATE'] as const,
 };
