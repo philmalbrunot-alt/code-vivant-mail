@@ -206,7 +206,7 @@ export function ResultClient() {
                   type="button"
                   onClick={() =>
                     window.open(
-                      'https://koalendar.com/e/echange-avec-philippe-malbrunot',
+                      'https://questions.malbrunot.me/',
                       '_blank',
                       'noopener,noreferrer'
                     )
