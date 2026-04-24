@@ -1,8 +1,11 @@
 import { BrandHeader, Container, Label, Panel, Shell } from '@/components/ui';
+import MetaPurchaseEvent from '@/components/MetaPurchaseEvent';
 
 export default function MerciPage() {
   return (
     <Shell>
+      <MetaPurchaseEvent />
+
       <Container>
         <BrandHeader />
 
@@ -31,11 +34,13 @@ export default function MerciPage() {
             <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">
               Pensez à vérifier vos spams si vous ne la voyez pas arriver.
             </p>
+
             <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">
               Certaines personnes préfèrent lire d’abord.
               D’autres sentent déjà qu’il faut aller directement au point vivant.
               Dans ce cas, la séance de clarification est l’étape la plus juste.
             </p>
+
             <div className="mt-8">
               <a
                 href="https://questions.malbrunot.me/"
