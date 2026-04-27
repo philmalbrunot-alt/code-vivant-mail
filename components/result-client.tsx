@@ -166,58 +166,61 @@ export function ResultClient() {
           <p className="mt-4 text-sm leading-7 text-cv-text/90">{reading.locked.line}</p>
 
           <h3 className="mt-8 text-center font-serif text-2xl leading-tight text-cv-text md:text-3xl">
-            Vous pouvez soit approfondir ce portrait à votre rythme, soit réserver une séance pour clarifier directement ce qui vous retient encore.
-          </h3>
+  Vous pouvez approfondir ce portrait à votre rythme et recevoir la lecture complète par mail.
+</h3>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <div className="rounded-[24px] border border-cv-gold/20 bg-cv-panelAlt p-5">
-              <h3 className="font-serif text-2xl text-cv-text">Profil complet</h3>
-              <p className="mt-2 text-3xl text-cv-gold">7 €</p>
-              <p className="mt-4 text-sm leading-7 text-cv-muted">
-                Recevez la lecture complète de votre profil :
-              </p>
-              <p className="mt-4 text-sm leading-7 text-cv-muted">
-                le verrou principal, l’héritage invisible, le rapport à la légitimité, l’élan retenu et la bascule la plus juste pour vous.
-              </p>
-              <div className="mt-6">
-                <PrimaryButton onClick={checkout} disabled={checkoutLoading} className="w-full">
-                  {checkoutLoading ? 'Ouverture du paiement…' : 'Recevoir mon portrait complet'}
-                </PrimaryButton>
-              </div>
-            </div>
+<div className="mx-auto mt-8 max-w-xl">
+  <div className="rounded-[24px] border border-cv-gold/20 bg-cv-panelAlt p-5">
+    <h3 className="font-serif text-2xl text-cv-text">Profil complet</h3>
+    <p className="mt-2 text-3xl text-cv-gold">7 €</p>
 
-            <div className="relative rounded-[24px] border border-cv-gold/30 bg-cv-panelAlt p-5 shadow-[0_0_0_1px_rgba(200,155,90,0.06)]">
-              <div className="absolute right-5 top-5 inline-flex items-center gap-2 rounded-full border border-cv-gold/30 bg-cv-gold/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-cv-gold">
-                <span aria-hidden="true">★</span>
-                <span>Recommandé</span>
-              </div>
+    <p className="mt-4 text-sm leading-7 text-cv-muted">
+      Déverrouillez la lecture complète : le verrou principal, l’héritage invisible,
+      le rapport à la légitimité, l’élan retenu et la direction de bascule la plus juste.
+    </p>
 
-              <h3 className="pr-28 font-serif text-2xl text-cv-text">Séance de clarification</h3>
-              <p className="mt-2 text-3xl text-cv-gold">97 €</p>
+    <p className="mt-4 text-sm leading-7 text-cv-muted">
+      Vous recevrez l’analyse complète par mail après paiement.
+    </p>
 
-              <p className="mt-4 text-sm leading-7 text-cv-muted">
-                1 h en visio pour clarifier ce qui vous retient encore et amorcer une première bascule concrète.
-              </p>
+    <div className="mt-6">
+      <PrimaryButton onClick={checkout} disabled={checkoutLoading} className="w-full">
+        {checkoutLoading ? 'Ouverture du paiement…' : 'Déverrouiller mon portrait complet'}
+      </PrimaryButton>
+    </div>
+  </div>
+</div>
 
-              <p className="mt-4 text-sm leading-7 text-cv-text/90">La lecture complète est incluse.</p>
+{error ? <p className="mt-4 text-sm text-red-300">{error}</p> : null}
 
-              <div className="mt-6">
-                <button
-                  type="button"
-                  onClick={() =>
-                    window.open(
-                      'https://questions.malbrunot.me/',
-                      '_blank',
-                      'noopener,noreferrer'
-                    )
-                  }
-                  className="inline-flex w-full items-center justify-center rounded-2xl border border-cv-gold/35 bg-cv-gold/12 px-5 py-4 text-sm font-medium text-cv-text transition hover:bg-cv-gold/20"
-                >
-                  Réserver ma séance
-                </button>
-              </div>
-            </div>
-          </div>
+<div className="mt-8 grid gap-4 md:grid-cols-3">
+  <div className="rounded-[24px] border border-cv-gold/15 bg-cv-panelAlt p-5">
+    <p className="text-sm leading-7 text-cv-muted">
+      “Je pensais recevoir quelque chose d’assez général. En réalité, certains passages ont mis des mots très précis sur ce que je vivais sans réussir à le formuler.”
+    </p>
+    <p className="mt-4 text-xs uppercase tracking-[0.18em] text-cv-gold">
+      Claire
+    </p>
+  </div>
+
+  <div className="rounded-[24px] border border-cv-gold/15 bg-cv-panelAlt p-5">
+    <p className="text-sm leading-7 text-cv-muted">
+      “Ce n’est pas flatteur, et c’est justement ce que j’ai aimé. J’ai eu l’impression qu’on me montrait le vrai point de tension, sans détour.”
+    </p>
+    <p className="mt-4 text-xs uppercase tracking-[0.18em] text-cv-gold">
+      Marianne
+    </p>
+  </div>
+
+  <div className="rounded-[24px] border border-cv-gold/15 bg-cv-panelAlt p-5">
+    <p className="text-sm leading-7 text-cv-muted">
+      “La lecture m’a aidé à comprendre pourquoi je restais bloqué dans certaines décisions. C’était sobre, dense, et beaucoup plus concret que prévu.”
+    </p>
+    <p className="mt-4 text-xs uppercase tracking-[0.18em] text-cv-gold">
+      Thomas
+    </p>
+  </div>
+</div>
 
           {error ? <p className="mt-4 text-sm text-red-300">{error}</p> : null}
         </Panel>
