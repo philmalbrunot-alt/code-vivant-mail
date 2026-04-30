@@ -220,7 +220,7 @@ export function HomeClient() {
                           key={option}
                           type="button"
                           onClick={() => selectChoice(option)}
-                          className={`w-full rounded-2xl border px-5 py-4 text-left text-sm leading-7 transition ${
+                          className={`w-full rounded-2xl border px-5 py-4 text-left text-base leading-7 transition ${
                             selected
                               ? 'border-cv-gold/30 bg-cv-gold/10 text-cv-text'
                               : 'border-cv-line bg-cv-panelAlt text-cv-muted hover:border-cv-gold/15'
@@ -249,11 +249,11 @@ export function HomeClient() {
                 <PrimaryButton onClick={next} disabled={!canContinue || isSubmitting}>
                   {index === steps.length - 1 ? (
                     isSubmitting ? (
-                      <span className="inline-flex items-center gap-1">
-                        Préparation
-                        <span className="animate-pulse">.</span>
-                        <span className="animate-pulse delay-150">.</span>
-                        <span className="animate-pulse delay-300">.</span>
+                      <span className="inline-flex items-center gap-2">
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                        <span className="animate-pulse">
+                          Préparation de votre lecture…
+                        </span>
                       </span>
                     ) : (
                       'Voir mon portrait'
