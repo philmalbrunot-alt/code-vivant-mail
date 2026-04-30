@@ -24,6 +24,9 @@ type ResultReading = {
   locked: ResultLocked;
 };
 
+const RESULT_UNLOCKED_KEY = 'codevivant_result_unlocked';
+const LEAD_EMAIL_KEY = 'codevivant_lead_email';
+
 function isResultReading(value: unknown): value is ResultReading {
   if (!value || typeof value !== 'object') return false;
 
@@ -52,9 +55,6 @@ function splitHero(text: string) {
     .map((part) => part.trim())
     .filter(Boolean);
 }
-
-const RESULT_UNLOCKED_KEY = 'codevivant_result_unlocked';
-const LEAD_EMAIL_KEY = 'codevivant_lead_email';
 
 export function ResultClient() {
   const router = useRouter();
@@ -157,6 +157,9 @@ export function ResultClient() {
     return splitHero(reading.hero);
   }, [reading]);
 
+  const previewSection = reading?.sections[0] ?? null;
+  const remainingSections = reading?.sections.slice(1) ?? [];
+
   if (loading || !reading) {
     return (
       <Shell>
@@ -173,35 +176,87 @@ export function ResultClient() {
       <Container>
         <BrandHeader />
 
-        <div className="relative">
-          <div className={!resultUnlocked ? 'max-h-[720px] overflow-hidden' : ''}>
-            <Panel>
-              <Label>APERÇU GRATUIT</Label>
+        <Panel>
+          <Label>APERÇU GRATUIT</Label>
 
-              <div className="mt-4 space-y-4">
-                {heroParagraphs.map((paragraph, index) => (
-                  <h1
-                    key={`hero-${index}`}
-                    className="font-serif text-3xl leading-tight text-cv-text md:text-5xl"
-                  >
-                    {paragraph}
-                  </h1>
+          <div className="mt-4 space-y-4">
+            {heroParagraphs.map((paragraph, index) => (
+              <h1
+                key={`hero-${index}`}
+                className="font-serif text-3xl leading-tight text-cv-text md:text-5xl"
+              >
+                {paragraph}
+              </h1>
+            ))}
+          </div>
+        </Panel>
+
+        {previewSection ? (
+          <div className="mt-6">
+            <Panel className="bg-cv-panelAlt">
+              <h2 className="font-serif text-2xl text-cv-text">
+                {previewSection.title}
+              </h2>
+              <p className="mt-3 text-sm leading-7 text-cv-muted md:text-base">
+                {previewSection.body}
+              </p>
+            </Panel>
+          </div>
+        ) : null}
+
+        {!resultUnlocked ? (
+          <Panel className="mt-6 border-cv-gold/25 bg-cv-panel">
+            <Label>LECTURE GRATUITE</Label>
+
+            <h2 className="mt-3 font-serif text-3xl leading-tight text-cv-text md:text-4xl">
+              Votre portrait est prêt.
+            </h2>
+
+            <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">
+              Entrez votre e-mail pour débloquer la suite de votre lecture
+              gratuite : héritage invisible, rapport à la valeur, tension
+              intérieure et direction de bascule.
+            </p>
+
+            <form onSubmit={unlockResult} className="mt-6 space-y-3">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="votre@email.com"
+                className="w-full rounded-[18px] border border-cv-gold/20 bg-cv-bg px-4 py-3 text-sm text-cv-text outline-none placeholder:text-cv-muted"
+              />
+
+              {emailError ? (
+                <p className="text-sm text-red-300">{emailError}</p>
+              ) : null}
+
+              <PrimaryButton type="submit" className="w-full">
+                Débloquer ma lecture gratuite
+              </PrimaryButton>
+            </form>
+
+            <p className="mt-4 text-xs leading-6 text-cv-muted">
+              Aucun spam. Votre e-mail sert uniquement à retrouver votre lecture
+              CODE VIVANT.
+            </p>
+          </Panel>
+        ) : (
+          <>
+            {remainingSections.length > 0 ? (
+              <div className="mt-6 space-y-4">
+                {remainingSections.map((section) => (
+                  <Panel key={section.title} className="bg-cv-panelAlt">
+                    <h2 className="font-serif text-2xl text-cv-text">
+                      {section.title}
+                    </h2>
+                    <p className="mt-3 text-sm leading-7 text-cv-muted md:text-base">
+                      {section.body}
+                    </p>
+                  </Panel>
                 ))}
               </div>
-            </Panel>
-
-            <div className="mt-6 space-y-4">
-              {reading.sections.map((section) => (
-                <Panel key={section.title} className="bg-cv-panelAlt">
-                  <h2 className="font-serif text-2xl text-cv-text">
-                    {section.title}
-                  </h2>
-                  <p className="mt-3 text-sm leading-7 text-cv-muted md:text-base">
-                    {section.body}
-                  </p>
-                </Panel>
-              ))}
-            </div>
+            ) : null}
 
             <Panel className="mt-6">
               <Label>{reading.locked.label}</Label>
@@ -294,51 +349,8 @@ export function ResultClient() {
                 </div>
               </div>
             </Panel>
-          </div>
-
-          {!resultUnlocked ? (
-            <>
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-80 bg-gradient-to-t from-cv-bg via-cv-bg/95 to-transparent" />
-
-              <Panel className="relative z-10 -mt-40 border-cv-gold/25 bg-cv-panel">
-                <Label>LECTURE GRATUITE</Label>
-
-                <h2 className="mt-3 font-serif text-3xl leading-tight text-cv-text md:text-4xl">
-                  Votre portrait est prêt.
-                </h2>
-
-                <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">
-                  Entrez votre e-mail pour débloquer la suite de votre lecture
-                  gratuite : héritage invisible, rapport à la valeur, tension
-                  intérieure et direction de bascule.
-                </p>
-
-                <form onSubmit={unlockResult} className="mt-6 space-y-3">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="votre@email.com"
-                    className="w-full rounded-[18px] border border-cv-gold/20 bg-cv-bg px-4 py-3 text-sm text-cv-text outline-none placeholder:text-cv-muted"
-                  />
-
-                  {emailError ? (
-                    <p className="text-sm text-red-300">{emailError}</p>
-                  ) : null}
-
-                  <PrimaryButton type="submit" className="w-full">
-                    Débloquer ma lecture gratuite
-                  </PrimaryButton>
-                </form>
-
-                <p className="mt-4 text-xs leading-6 text-cv-muted">
-                  Aucun spam. Votre e-mail sert uniquement à retrouver votre
-                  lecture CODE VIVANT.
-                </p>
-              </Panel>
-            </>
-          ) : null}
-        </div>
+          </>
+        )}
       </Container>
     </Shell>
   );
