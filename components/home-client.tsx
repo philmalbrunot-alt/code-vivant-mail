@@ -1,11 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { BRAND, ENERGY_OPTIONS, FOCUS_OPTIONS, STRESS_OPTIONS } from '@/lib/constants';
 import type { QuizAnswers } from '@/lib/types';
 import { FREE_STORAGE_KEY } from '@/lib/storage';
-import { BadgeRow, BrandHeader, Container, Label, Panel, PrimaryButton, ProgressBar, SecondaryButton, Shell } from './ui';
+import {
+  BadgeRow,
+  BrandHeader,
+  Container,
+  Label,
+  Panel,
+  PrimaryButton,
+  ProgressBar,
+  SecondaryButton,
+  Shell,
+} from './ui';
 
 const initialAnswers: QuizAnswers = {
   firstName: '',
@@ -56,6 +66,8 @@ function isValidBirthDate(value: string) {
 
 export function HomeClient() {
   const router = useRouter();
+  const actionsRef = useRef<HTMLDivElement | null>(null);
+
   const [started, setStarted] = useState(false);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswers>(initialAnswers);
@@ -79,6 +91,17 @@ export function HomeClient() {
     }
 
     setAnswers((prev) => ({ ...prev, [step.key]: v }));
+  }
+
+  function selectChoice(option: string) {
+    updateValue(option);
+
+    window.setTimeout(() => {
+      actionsRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }, 120);
   }
 
   async function submit() {
@@ -122,7 +145,8 @@ export function HomeClient() {
     setIndex((prev) => prev + 1);
   }
 
-  const showBirthDateHint = step.key === 'birthDate' && value.length > 0 && !isValidBirthDate(String(value));
+  const showBirthDateHint =
+    step.key === 'birthDate' && value.length > 0 && !isValidBirthDate(String(value));
 
   return (
     <Shell>
@@ -133,21 +157,40 @@ export function HomeClient() {
           <Panel className="py-12 md:py-16">
             <div className="mx-auto max-w-3xl text-center">
               <Label>{BRAND.label}</Label>
-              <h1 className="mt-4 font-serif text-4xl leading-tight text-cv-text md:text-7xl">{BRAND.title}</h1>
-              <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-cv-text/90 md:text-2xl">{BRAND.subtitle}</p>
-              <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">{BRAND.body}</p>
-              <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">{BRAND.method}</p>
+
+              <h1 className="mt-4 font-serif text-4xl leading-tight text-cv-text md:text-7xl">
+                {BRAND.title}
+              </h1>
+
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-cv-text/90 md:text-2xl">
+                {BRAND.subtitle}
+              </p>
+
+              <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">
+                {BRAND.body}
+              </p>
+
+              <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-cv-muted md:text-base">
+                {BRAND.method}
+              </p>
+
               <BadgeRow items={BRAND.badges} />
+
               <div className="mt-10 flex justify-center">
-                <PrimaryButton onClick={() => setStarted(true)}>Voir mon portrait</PrimaryButton>
+                <PrimaryButton onClick={() => setStarted(true)}>
+                  Voir mon portrait
+                </PrimaryButton>
               </div>
             </div>
           </Panel>
         ) : (
           <Panel className="mt-8">
             <ProgressBar value={progress} />
+
             <div className="mx-auto max-w-3xl">
-              <h2 className="text-center font-serif text-3xl text-cv-text md:text-4xl">{step.title}</h2>
+              <h2 className="text-center font-serif text-[2.05rem] leading-tight text-cv-text md:text-[2.75rem]">
+                {step.title}
+              </h2>
 
               <div className="mt-8">
                 {step.type === 'text' ? (
@@ -160,19 +203,23 @@ export function HomeClient() {
                       maxLength={step.key === 'birthDate' ? 10 : undefined}
                       className="w-full rounded-2xl border border-cv-line bg-cv-panelAlt px-5 py-4 text-base text-cv-text outline-none placeholder:text-cv-faint"
                     />
+
                     {showBirthDateHint ? (
-                      <p className="mt-3 text-sm text-cv-faint">Format attendu : JJ/MM/AAAA</p>
+                      <p className="mt-3 text-sm text-cv-faint">
+                        Format attendu : JJ/MM/AAAA
+                      </p>
                     ) : null}
                   </>
                 ) : (
                   <div className="space-y-3">
                     {step.options.map((option) => {
                       const selected = value === option;
+
                       return (
                         <button
                           key={option}
                           type="button"
-                          onClick={() => updateValue(option)}
+                          onClick={() => selectChoice(option)}
                           className={`w-full rounded-2xl border px-5 py-4 text-left text-sm leading-7 transition ${
                             selected
                               ? 'border-cv-gold/30 bg-cv-gold/10 text-cv-text'
@@ -189,10 +236,31 @@ export function HomeClient() {
 
               {error ? <p className="mt-4 text-sm text-red-300">{error}</p> : null}
 
-              <div className="mt-8 flex items-center justify-between gap-4">
-                <SecondaryButton onClick={() => setIndex((prev) => (prev === 0 ? 0 : prev - 1))}>Retour</SecondaryButton>
+              <div
+                ref={actionsRef}
+                className="mt-8 flex items-center justify-between gap-4 scroll-mt-8"
+              >
+                <SecondaryButton
+                  onClick={() => setIndex((prev) => (prev === 0 ? 0 : prev - 1))}
+                >
+                  Retour
+                </SecondaryButton>
+
                 <PrimaryButton onClick={next} disabled={!canContinue || isSubmitting}>
-                  {index === steps.length - 1 ? (isSubmitting ? 'Préparation…' : 'Voir mon portrait') : 'Continuer'}
+                  {index === steps.length - 1 ? (
+                    isSubmitting ? (
+                      <span className="inline-flex items-center gap-1">
+                        Préparation
+                        <span className="animate-pulse">.</span>
+                        <span className="animate-pulse delay-150">.</span>
+                        <span className="animate-pulse delay-300">.</span>
+                      </span>
+                    ) : (
+                      'Voir mon portrait'
+                    )
+                  ) : (
+                    'Continuer'
+                  )}
                 </PrimaryButton>
               </div>
             </div>
