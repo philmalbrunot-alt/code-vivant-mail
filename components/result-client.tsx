@@ -67,6 +67,7 @@ export function ResultClient() {
 
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState<string | null>(null);
+  const [emailLoading, setEmailLoading] = useState(false);
   const [resultUnlocked, setResultUnlocked] = useState(false);
 
   useEffect(() => {
@@ -134,7 +135,7 @@ export function ResultClient() {
     }
   }
 
-  function unlockResult(e: React.FormEvent<HTMLFormElement>) {
+  async function unlockResult(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setEmailError(null);
 
@@ -145,11 +146,36 @@ export function ResultClient() {
       return;
     }
 
-    localStorage.setItem(LEAD_EMAIL_KEY, cleanEmail);
-    localStorage.setItem(RESULT_UNLOCKED_KEY, 'true');
+    try {
+      setEmailLoading(true);
 
-    setEmail(cleanEmail);
-    setResultUnlocked(true);
+      await fetch('/api/lead/capture', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: cleanEmail,
+          source: 'resultat_email_gate',
+          firstName: answers?.firstName || '',
+          birthDate: answers?.birthDate || '',
+          birthPlace: answers?.birthPlace || '',
+          currentFocus: answers?.currentFocus || '',
+          energyState: answers?.energyState || '',
+          stressResponse: answers?.stressResponse || '',
+        }),
+      });
+
+      localStorage.setItem(LEAD_EMAIL_KEY, cleanEmail);
+      localStorage.setItem(RESULT_UNLOCKED_KEY, 'true');
+
+      setEmail(cleanEmail);
+      setResultUnlocked(true);
+    } catch {
+      setEmailError('Impossible de débloquer la lecture. Réessayez.');
+    } finally {
+      setEmailLoading(false);
+    }
   }
 
   const heroParagraphs = useMemo(() => {
@@ -231,8 +257,14 @@ export function ResultClient() {
                 <p className="text-sm text-red-300">{emailError}</p>
               ) : null}
 
-              <PrimaryButton type="submit" className="w-full">
-                Débloquer ma lecture gratuite
+              <PrimaryButton
+                type="submit"
+                disabled={emailLoading}
+                className="w-full"
+              >
+                {emailLoading
+                  ? 'Déblocage de votre lecture…'
+                  : 'Débloquer ma lecture gratuite'}
               </PrimaryButton>
             </form>
 
