@@ -209,7 +209,7 @@ export function ResultClient() {
             {heroParagraphs.map((paragraph, index) => (
               <h1
                 key={`hero-${index}`}
-                className="font-serif text-3xl leading-tight text-cv-text md:text-5xl"
+                className="font-serif text-2xl leading-tight text-cv-text"
               >
                 {paragraph}
               </h1>
@@ -306,8 +306,10 @@ export function ResultClient() {
               </p>
 
               <h3 className="mt-8 text-center font-serif text-2xl leading-tight text-cv-text md:text-3xl">
-                Vous pouvez approfondir ce portrait à votre rythme et recevoir
-                votre pack complet par mail.
+                La suite est déjà écrite pour vous.
+                <br />
+                Recevez votre portrait intégral et le livret de bascule, par
+                e-mail, maintenant.
               </h3>
 
               <div className="mx-auto mt-8 max-w-4xl">
@@ -321,32 +323,45 @@ export function ResultClient() {
                   </div>
 
                   <div>
-                    <Label>PACK COMPLET</Label>
+                    <Label>PACK COMPLET — ACCÈS IMMÉDIAT</Label>
 
-                    <h3 className="mt-3 font-serif text-3xl leading-tight text-cv-text">
-                      Pack CODE VIVANT complet
+                    <h3 className="mt-3 font-serif text-3xl leading-tight text-cv-text md:text-4xl">
+                      Votre portrait intégral
+                      <br />
+                      + le livret de bascule
                     </h3>
 
-                    <p className="mt-3 text-xl text-cv-gold">
-                      Prix de lancement : 7 €
-                    </p>
+                    <div className="mt-4 flex flex-wrap items-baseline gap-3">
+                      <p className="text-4xl text-cv-gold">7 €</p>
+                      <p className="text-lg text-cv-muted line-through">27 €</p>
+                      <p className="text-sm uppercase tracking-[0.16em] text-cv-gold">
+                        Prix de lancement
+                      </p>
+                    </div>
 
-                    <p className="mt-5 text-sm leading-7 text-cv-muted md:text-base">
-                      Recevez votre lecture complète par e-mail, avec le livret
-                      “Reprendre les commandes”.
-                    </p>
+                    <div className="mt-6 space-y-4 text-sm leading-7 text-cv-muted md:text-base">
+                      <p>
+                        ✓ Votre portrait intégral : le verrou principal,
+                        l&apos;héritage invisible, votre rapport à la légitimité
+                        et votre direction de bascule.
+                      </p>
 
-                    <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">
-                      Vous y trouverez votre portrait intégral : le verrou
-                      principal, l’héritage invisible, votre rapport à la
-                      légitimité et votre direction de bascule.
-                    </p>
+                      <p>
+                        ✓ Le livret « Reprendre les commandes » : 6 exercices
+                        concrets et complets pour décompresser et retrouver de
+                        l&apos;espace intérieur.
+                      </p>
 
-                    <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">
-                      Le livret vous guide ensuite avec 6 exercices concrets
-                      pour décompresser, retrouver de l’espace intérieur et
-                      poser une première action juste dès aujourd’hui.
-                    </p>
+                      <p>
+                        ✓ 6 leviers pour relâcher la pression dès ce soir et
+                        être prêt.e à faire un premier pas.
+                      </p>
+
+                      <p>
+                        ✓ Reçu par e-mail en moins de 5 minutes, à relire à
+                        votre rythme.
+                      </p>
+                    </div>
 
                     <div className="mt-6">
                       <PrimaryButton
@@ -356,14 +371,24 @@ export function ResultClient() {
                       >
                         {checkoutLoading
                           ? 'Ouverture du paiement…'
-                          : 'Déverrouiller mon pack complet — 7 €'}
+                          : 'Recevoir mon portrait complet : 7 €'}
                       </PrimaryButton>
                     </div>
 
-                    <div className="mt-4 space-y-2 text-xs leading-6 text-cv-muted">
-                      <p>Accès immédiat par e-mail après validation.</p>
-                      <p>Paiement Stripe ultra sécurisé.</p>
+                    <div className="mt-5 rounded-[20px] border border-cv-gold/15 bg-cv-bg p-4">
+                      <p className="text-sm leading-7 text-cv-muted">
+                        « J&apos;ai eu l&apos;impression qu&apos;on me montrait
+                        le vrai point de tension, sans détour. »
+                      </p>
+                      <p className="mt-3 text-xs uppercase tracking-[0.18em] text-cv-gold">
+                        — Marianne
+                      </p>
                     </div>
+
+                    <p className="mt-4 text-center text-xs leading-6 text-cv-muted">
+                      Paiement sécurisé Stripe · Accès immédiat par e-mail ·
+                      Livret à garder
+                    </p>
                   </div>
                 </div>
               </div>
