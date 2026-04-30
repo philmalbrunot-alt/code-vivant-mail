@@ -307,37 +307,63 @@ export function ResultClient() {
 
               <h3 className="mt-8 text-center font-serif text-2xl leading-tight text-cv-text md:text-3xl">
                 Vous pouvez approfondir ce portrait à votre rythme et recevoir
-                la lecture complète par mail.
+                votre pack complet par mail.
               </h3>
 
-              <div className="mx-auto mt-8 max-w-xl">
-                <div className="rounded-[24px] border border-cv-gold/20 bg-cv-panelAlt p-5">
-                  <h3 className="font-serif text-2xl text-cv-text">
-                    Profil complet
-                  </h3>
+              <div className="mx-auto mt-8 max-w-4xl">
+                <div className="grid gap-6 rounded-[28px] border border-cv-gold/25 bg-cv-panelAlt p-5 md:grid-cols-[0.9fr_1.1fr] md:p-6">
+                  <div className="flex items-center justify-center">
+                    <img
+                      src="/pack-reprendre-les-commandes.png"
+                      alt="Livret Reprendre les commandes"
+                      className="w-full max-w-[280px] rounded-[20px] border border-cv-gold/15 bg-cv-bg shadow-2xl md:max-w-[320px]"
+                    />
+                  </div>
 
-                  <p className="mt-2 text-3xl text-cv-gold">7 €</p>
+                  <div>
+                    <Label>PACK COMPLET</Label>
 
-                  <p className="mt-4 text-sm leading-7 text-cv-muted">
-                    Déverrouillez la lecture complète : le verrou principal,
-                    l’héritage invisible, le rapport à la légitimité, l’élan
-                    retenu et la direction de bascule la plus juste.
-                  </p>
+                    <h3 className="mt-3 font-serif text-3xl leading-tight text-cv-text">
+                      Pack CODE VIVANT complet
+                    </h3>
 
-                  <p className="mt-4 text-sm leading-7 text-cv-muted">
-                    Vous recevrez l’analyse complète par mail après paiement.
-                  </p>
+                    <p className="mt-3 text-xl text-cv-gold">
+                      Prix de lancement : 7 €
+                    </p>
 
-                  <div className="mt-6">
-                    <PrimaryButton
-                      onClick={checkout}
-                      disabled={checkoutLoading}
-                      className="w-full"
-                    >
-                      {checkoutLoading
-                        ? 'Ouverture du paiement…'
-                        : 'Déverrouiller mon portrait complet'}
-                    </PrimaryButton>
+                    <p className="mt-5 text-sm leading-7 text-cv-muted md:text-base">
+                      Recevez votre lecture complète par e-mail, avec le livret
+                      “Reprendre les commandes”.
+                    </p>
+
+                    <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">
+                      Vous y trouverez votre portrait intégral : le verrou
+                      principal, l’héritage invisible, votre rapport à la
+                      légitimité et votre direction de bascule.
+                    </p>
+
+                    <p className="mt-4 text-sm leading-7 text-cv-muted md:text-base">
+                      Le livret vous guide ensuite avec 6 exercices concrets
+                      pour décompresser, retrouver de l’espace intérieur et
+                      poser une première action juste dès aujourd’hui.
+                    </p>
+
+                    <div className="mt-6">
+                      <PrimaryButton
+                        onClick={checkout}
+                        disabled={checkoutLoading}
+                        className="w-full"
+                      >
+                        {checkoutLoading
+                          ? 'Ouverture du paiement…'
+                          : 'Déverrouiller mon pack complet — 7 €'}
+                      </PrimaryButton>
+                    </div>
+
+                    <div className="mt-4 space-y-2 text-xs leading-6 text-cv-muted">
+                      <p>Accès immédiat par e-mail après validation.</p>
+                      <p>Paiement Stripe ultra sécurisé.</p>
+                    </div>
                   </div>
                 </div>
               </div>
