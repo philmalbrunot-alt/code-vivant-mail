@@ -246,13 +246,41 @@ export function HomeClient() {
                   Retour
                 </SecondaryButton>
 
-                <PrimaryButton onClick={next} disabled={!canContinue || isSubmitting}>
+                <PrimaryButton
+                  onClick={next}
+                  disabled={!canContinue || isSubmitting}
+                  className={
+                    isSubmitting
+                      ? 'animate-pulse border-cv-gold/40 shadow-[0_0_24px_rgba(212,175,55,0.28)] ring-2 ring-cv-gold/40'
+                      : ''
+                  }
+                >
                   {index === steps.length - 1 ? (
                     isSubmitting ? (
-                      <span className="inline-flex items-center gap-2">
-                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                        <span className="animate-pulse">
-                          Préparation de votre lecture…
+                      <span className="inline-flex items-center justify-center gap-2">
+                        <span className="font-medium">
+                          Préparation de votre lecture
+                        </span>
+
+                        <span className="inline-flex items-center gap-1 text-lg leading-none text-cv-gold">
+                          <span
+                            className="animate-bounce"
+                            style={{ animationDelay: '0ms' }}
+                          >
+                            •
+                          </span>
+                          <span
+                            className="animate-bounce"
+                            style={{ animationDelay: '150ms' }}
+                          >
+                            •
+                          </span>
+                          <span
+                            className="animate-bounce"
+                            style={{ animationDelay: '300ms' }}
+                          >
+                            •
+                          </span>
                         </span>
                       </span>
                     ) : (
