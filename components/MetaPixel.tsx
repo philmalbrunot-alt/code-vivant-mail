@@ -52,10 +52,6 @@ export default function MetaPixel() {
         />
       </noscript>
     </>
-  )
-}
 
-
-    </html>
   );
 }
