@@ -14,6 +14,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MetaPixel />
         {children}
       </body>
-    </html>
-  );
-}
