@@ -362,18 +362,23 @@ export function ResultClient() {
                         votre rythme.
                       </p>
                     </div>
-
                     <div className="mt-6">
-                      <PrimaryButton
-                        onClick={checkout}
-                        disabled={checkoutLoading}
-                        className="w-full"
-                      >
-                        {checkoutLoading
-                          ? 'Ouverture du paiement…'
-                          : 'Recevoir mon portrait complet : 7 €'}
-                      </PrimaryButton>
-                    </div>
+                    <PrimaryButton
+    onClick={checkout}
+    disabled={checkoutLoading}
+    className="w-full"
+  >
+    {checkoutLoading ? (
+      'Ouverture du paiement…'
+    ) : (
+      <span className="flex flex-col items-center justify-center leading-tight">
+        <span>Recevoir mon portrait complet</span>
+        <span className="mt-1">7 €</span>
+      </span>
+    )}
+  </PrimaryButton>
+</div>
+            
 
                     <div className="mt-5 rounded-[20px] border border-cv-gold/15 bg-cv-bg p-4">
                       <p className="text-sm leading-7 text-cv-muted">
