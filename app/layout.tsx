@@ -1,19 +1,55 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import MetaPixel from '@/components/MetaPixel';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Code Vivant',
-  description: 'Diagnostic intérieur premium',
-};
+import Script from 'next/script';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
+
+const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+
+export default function MetaPixel() {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (!META_PIXEL_ID) return;
+    if (typeof window === 'undefined') return;
+    if (!window.fbq) return;
+
+    window.fbq('track', 'PageView');
+  }, [pathname]);
+
+  if (!META_PIXEL_ID) return null;
+
   return (
-    <html lang="fr">
-      <body>
-        <MetaPixel />
-        {children}
-      </body>
-    </html>
+    <>
+      <Script id="meta-pixel" strategy="afterInteractive">
+        {`
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '${META_PIXEL_ID}');
+        `}
+      </Script>
+
+      <noscript>
+        <img
+          height="1"
+          width="1"
+          style={{ display: 'none' }}
+          src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+          alt=""
+        />
+      </noscript>
+    </>
   );
 }
