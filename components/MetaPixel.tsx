@@ -1,29 +1,29 @@
-'use client'
+'use client';
 
-import Script from 'next/script'
-import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import Script from 'next/script';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 declare global {
   interface Window {
-    fbq?: (...args: any[]) => void
+    fbq?: (...args: unknown[]) => void;
   }
 }
 
-const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID
+const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 
 export default function MetaPixel() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (!META_PIXEL_ID) return
-    if (typeof window === 'undefined') return
-    if (!window.fbq) return
+    if (!META_PIXEL_ID) return;
+    if (typeof window === 'undefined') return;
+    if (!window.fbq) return;
 
-    window.fbq('track', 'PageView')
-  }, [pathname])
+    window.fbq('track', 'PageView');
+  }, [pathname]);
 
-  if (!META_PIXEL_ID) return null
+  if (!META_PIXEL_ID) return null;
 
   return (
     <>
@@ -38,7 +38,6 @@ export default function MetaPixel() {
           s.parentNode.insertBefore(t,s)}(window, document,'script',
           'https://connect.facebook.net/en_US/fbevents.js');
           fbq('init', '${META_PIXEL_ID}');
-          fbq('track', 'PageView');
         `}
       </Script>
 
@@ -52,5 +51,5 @@ export default function MetaPixel() {
         />
       </noscript>
     </>
-  )
+  );
 }
