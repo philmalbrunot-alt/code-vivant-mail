@@ -1,10 +1,16 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { QuizAnswers } from '@/lib/types';
 import { FREE_STORAGE_KEY } from '@/lib/storage';
 import { BrandHeader, Container, Label, Panel, PrimaryButton, Shell } from './ui';
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
 
 type ResultSection = {
   title: string;
@@ -26,6 +32,25 @@ type ResultReading = {
 
 const RESULT_UNLOCKED_KEY = 'codevivant_result_unlocked';
 const LEAD_EMAIL_KEY = 'codevivant_lead_email';
+
+function trackMetaEvent(
+  eventName: string,
+  params?: Record<string, string | number | boolean>,
+  attempt = 0
+) {
+  if (typeof window === 'undefined') return;
+
+  if (window.fbq) {
+    window.fbq('track', eventName, params);
+    return;
+  }
+
+  if (attempt < 10) {
+    window.setTimeout(() => {
+      trackMetaEvent(eventName, params, attempt + 1);
+    }, 300);
+  }
+}
 
 function isResultReading(value: unknown): value is ResultReading {
   if (!value || typeof value !== 'object') return false;
@@ -58,6 +83,7 @@ function splitHero(text: string) {
 
 export function ResultClient() {
   const router = useRouter();
+  const viewContentTrackedRef = useRef(false);
 
   const [answers, setAnswers] = useState<QuizAnswers | null>(null);
   const [reading, setReading] = useState<ResultReading | null>(null);
@@ -109,8 +135,27 @@ export function ResultClient() {
     }
   }, [router]);
 
+  useEffect(() => {
+    if (loading || !reading) return;
+    if (viewContentTrackedRef.current) return;
+
+    viewContentTrackedRef.current = true;
+
+    trackMetaEvent('ViewContent', {
+      content_name: 'resultat_gratuit_code_vivant',
+      content_category: 'free_reading_result',
+    });
+  }, [loading, reading]);
+
   async function checkout() {
     if (!answers) return;
+
+    trackMetaEvent('InitiateCheckout', {
+      content_name: 'pack_code_vivant_complet',
+      content_category: 'premium_pack',
+      value: 7,
+      currency: 'EUR',
+    });
 
     try {
       setCheckoutLoading(true);
@@ -171,6 +216,12 @@ export function ResultClient() {
 
       setEmail(cleanEmail);
       setResultUnlocked(true);
+
+      trackMetaEvent('Lead', {
+        content_name: 'email_gate_resultat',
+        content_category: 'lead_capture',
+        status: 'result_unlocked',
+      });
     } catch {
       setEmailError('Impossible de débloquer la lecture. Réessayez.');
     } finally {
@@ -362,23 +413,23 @@ export function ResultClient() {
                         votre rythme.
                       </p>
                     </div>
+
                     <div className="mt-6">
-                    <PrimaryButton
-    onClick={checkout}
-    disabled={checkoutLoading}
-    className="w-full"
-  >
-    {checkoutLoading ? (
-      'Ouverture du paiement…'
-    ) : (
-      <span className="flex flex-col items-center justify-center leading-tight">
-        <span>Recevoir mon portrait complet</span>
-        <span className="mt-1">7 €</span>
-      </span>
-    )}
-  </PrimaryButton>
-</div>
-            
+                      <PrimaryButton
+                        onClick={checkout}
+                        disabled={checkoutLoading}
+                        className="w-full"
+                      >
+                        {checkoutLoading ? (
+                          'Ouverture du paiement…'
+                        ) : (
+                          <span className="flex flex-col items-center justify-center leading-tight">
+                            <span>Recevoir mon portrait complet</span>
+                            <span className="mt-1">7 €</span>
+                          </span>
+                        )}
+                      </PrimaryButton>
+                    </div>
 
                     <div className="mt-5 rounded-[20px] border border-cv-gold/15 bg-cv-bg p-4">
                       <p className="text-sm leading-7 text-cv-muted">
