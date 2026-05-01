@@ -8,10 +8,9 @@ import { BrandHeader, Container, Label, Panel, PrimaryButton, Shell } from './ui
 
 declare global {
   interface Window {
-    fbq?: (...args: unknown[]) => void;
+    fbq?: (...args: any[]) => void;
   }
 }
-
 type ResultSection = {
   title: string;
   body: string;
