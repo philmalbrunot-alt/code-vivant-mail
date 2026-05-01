@@ -55,7 +55,6 @@ export default function MetaPixel() {
   )
 }
 
-Meta me dit qu'il ne voit pas l pge result client (les infos ne remontent pas)
 
     </html>
   );
