@@ -22,7 +22,6 @@ export async function POST(req: Request) {
         answers &&
         typeof answers.firstName === 'string' &&
         typeof answers.birthDate === 'string' &&
-        typeof answers.birthPlace === 'string' &&
         typeof answers.currentFocus === 'string' &&
         typeof answers.energyState === 'string' &&
         typeof answers.stressResponse === 'string'
