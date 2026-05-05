@@ -6,7 +6,7 @@ export const BRAND = {
   body:
     'Questionnaire gratuit sans récolte de votre email.',
   method:
-    'Votre portrait s’appuie sur la numérologie, une lecture psychospirituelle et une approche systémique de vos schémas profonds.',
+    'Votre portrait s’appuie sur une lecture psychospirituelle et une approche systémique de vos schémas profonds.',
 
   badges: ['DIAGNOSTIC EXPRESS', 'APERÇU GRATUIT', 'LECTURE IMMÉDIATE'] as const,
 };
