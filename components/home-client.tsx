@@ -29,7 +29,6 @@ const initialAnswers: QuizAnswers = {
 const steps = [
   { key: 'firstName', title: 'Votre prénom', type: 'text', placeholder: 'Ex. Martin' },
   { key: 'birthDate', title: 'Votre date de naissance', type: 'text', placeholder: 'JJ/MM/AAAA' },
-  { key: 'birthPlace', title: 'Votre lieu de naissance', type: 'text', placeholder: 'Ex. Aix-les-Bains' },
   { key: 'currentFocus', title: 'Qu’est-ce qui vous amène ici ?', type: 'choice', options: FOCUS_OPTIONS },
   { key: 'energyState', title: 'En ce moment, votre niveau d’énergie ressemble à…', type: 'choice', options: ENERGY_OPTIONS },
   { key: 'stressResponse', title: 'Quand ça ne va pas, vous faites quoi le plus souvent ?', type: 'choice', options: STRESS_OPTIONS },
