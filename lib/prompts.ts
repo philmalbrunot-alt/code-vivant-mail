@@ -110,7 +110,7 @@ Réponds en JSON strict avec cette structure exacte :
   ],
   "locked": {
     "label": "CE QUE VOUS N'AVEZ PAS ENCORE VU",
-    "title": "Le vrai nœud n'est pas encore révélé",
+    "title": "[GÉNÉRER : titre spécifique à CE profil, 6-12 mots, dérivé du mécanisme décrit, pas interchangeable — ex: 'Ce que votre besoin de suranalyse protège réellement']",
     "body": "...",
     "line": "..."
   }
