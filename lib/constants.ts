@@ -4,7 +4,7 @@ export const BRAND = {
   subtitle:
     'Répondez à quelques questions et recevez un premier décryptage de votre mode de protection, de votre blocage central et de ce qui cherche à bouger en vous.',
   body:
-    'Questionnaire gratuit sans récolte de votre email.',
+    'Questionnaire gratuit.',
   method:
     'Votre portrait s’appuie sur une lecture psychospirituelle et une approche systémique de vos schémas profonds.',
 
